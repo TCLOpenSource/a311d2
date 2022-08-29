@@ -1,0 +1,72 @@
+/* SPDX-License-Identifier: (GPL-2.0+ OR MIT) */
+/*
+ * Copyright (c) 2019 Amlogic, Inc. All rights reserved.
+ */
+
+#ifndef __PDM_MATCH_TABLE_H__
+#define __PDM_MATCH_TABLE_H__
+
+static struct pdm_chipinfo g12a_pdm_chipinfo = {
+	.mute_fn         = true,
+	.truncate_data   = false,
+};
+
+#ifndef CONFIG_AMLOGIC_REMOVE_OLD
+static struct pdm_chipinfo tl1_pdm_chipinfo = {
+	.mute_fn         = true,
+	.truncate_data   = false,
+};
+#endif
+
+static struct pdm_chipinfo sm1_pdm_chipinfo = {
+	.mute_fn         = true,
+	.truncate_data   = false,
+	.train           = true,
+	.train_version   = PDM_TRAIN_VERSION_V1,
+};
+
+static struct pdm_chipinfo tm2_pdm_chipinfo = {
+	.mute_fn         = true,
+	.truncate_data   = false,
+	.train           = true,
+	.train_version   = PDM_TRAIN_VERSION_V1,
+};
+
+static struct pdm_chipinfo sc2_pdm_chipinfo = {
+	.mute_fn         = true,
+	.truncate_data   = false,
+	.train           = true,
+	.train_version   = PDM_TRAIN_VERSION_V2,
+};
+
+static const struct of_device_id aml_pdm_device_id[] = {
+#ifndef CONFIG_AMLOGIC_REMOVE_OLD
+	{
+		.compatible = "amlogic, axg-snd-pdm",
+	},
+	{
+		.compatible = "amlogic, tl1-snd-pdm",
+		.data       = &tl1_pdm_chipinfo,
+	},
+#endif
+	{
+		.compatible = "amlogic, g12a-snd-pdm",
+		.data       = &g12a_pdm_chipinfo,
+	},
+	{
+		.compatible = "amlogic, sm1-snd-pdm",
+		.data		= &sm1_pdm_chipinfo,
+	},
+	{
+		.compatible = "amlogic, tm2-snd-pdm",
+		.data		= &tm2_pdm_chipinfo,
+	},
+	{
+		.compatible = "amlogic, sc2-snd-pdm",
+		.data		= &sc2_pdm_chipinfo,
+	},
+
+	{}
+};
+MODULE_DEVICE_TABLE(of, aml_pdm_device_id);
+#endif
